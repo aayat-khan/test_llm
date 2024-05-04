@@ -4,11 +4,10 @@ import langchain
 langchain.debug=False
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain import HuggingFaceHub
+from langchain_community.document_loaders.mongodb import MongodbLoader
 from langchain.chains import RetrievalQA
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.document_loaders import UnstructuredURLLoader
 from langchain.vectorstores import FAISS
-from langchain_community.document_loaders.mongodb import MongodbLoader
 DEBUG=True
 llm = HuggingFaceHub(
     repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1",
@@ -41,7 +40,7 @@ embeddings = HuggingFaceEmbeddings()
 if DEBUG : print("embeddings initialised")
 # Pass the documents and embeddings inorder to create FAISS vector index
 vectorindex_openai = FAISS.from_documents(docs, embeddings)
-if DEBUG : print("]FAISS done")
+if DEBUG : print("FAISS done")
 # Storing vector index create in local
 file_path="vector_index.pkl"
 with open(file_path, "wb") as f:
